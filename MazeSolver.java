@@ -29,6 +29,53 @@ public class MazeSolver {
     static int length[] = new int[2];
     static Stack<Integer>locationx = new Stack<Integer>();
     static Stack<Integer>locationy = new Stack<Integer>();
+
+    /*
+     * The First parameter of this program is checking for the X Coordinates of the Maze and the solution coordinates, and scans for every 
+     * possible row, and then sends that position to the main method, and prints it out in the x coordinate in the main method with the Y coordinate.
+     * The Second Parameter of this program is Checking for the Y Coordinate at all possibilties, with it working very similarry to the first Parameter of this method, 
+     * and in the main method is paired together with the x coordinate, bringing us to the return value.
+     * The Return Value of this method are whether the maze has the correct coordinate solutions, and also checks if its true or false, and this method then is 
+     * put to work in the main method, and prints out the coordinate solutions for the maze as the final return value of this method that I have just explained. 
+     */
+    public static boolean maze(int x, int y) { 
+        checked[x][y] = true;
+        if(list[x][y] == 3) {
+            locationx.push(x);
+            locationy.push(y);
+            return true;
+        }
+        if(x < length[0] && !checked[x + 1][y] && list[x + 1][y] != 2 &&  list[x + 1][y] != 0) {
+            if(maze(x + 1,y)) {
+                locationx.push(x);
+                locationy.push(y);
+                return true;
+            }
+        }
+        if(x > 0 && !checked[x - 1][y] && list[x - 1][y] != 2 && list[x - 1][y] != 0) {
+            if(maze(x - 1,y)) {
+                locationx.push(x);
+                locationy.push(y);
+                return true;
+            }
+        }
+        if(y < length[1] && !checked[x][y + 1] && list[x][y + 1] != 2 && list[x][y + 1] != 0) {
+            if(maze(x, y + 1)) {
+                locationx.push(x);
+                locationy.push(y);
+                return true;
+            }
+        }
+        if(y > 0 && !checked[x][y - 1] && list[x][y - 1] != 2 && list[x][y - 1] != 0) {
+            if(maze(x, y -1)) {
+                locationx.push(x);
+                locationy.push(y);
+                return true;
+            }
+        }        
+        return false;
+    } 
+
     /*
      * The first parameter of this method is scanning the .txt file containing the maze, and preparing it to be scanned/
      * The second parameter of this method is determining what the characters are in the maze, and what position they are at, 
@@ -81,50 +128,4 @@ public class MazeSolver {
             System.exit(0);
         }
     }
-    
-    /*
-     * The First parameter of this program is checking for the X Coordinates of the Maze and the solution coordinates, and scans for every 
-     * possible row, and then sends that position to the main method, and prints it out in the x coordinate in the main method with the Y coordinate.
-     * The Second Parameter of this program is Checking for the Y Coordinate at all possibilties, with it working very similarry to the first Parameter of this method, 
-     * and in the main method is paired together with the x coordinate, bringing us to the return value.
-     * The Return Value of this method are whether the maze has the correct coordinate solutions, and also checks if its true or false, and this method then is 
-     * put to work in the main method, and prints out the coordinate solutions for the maze as the final return value of this method that I have just explained. 
-     */
-    public static boolean maze(int x, int y) { 
-        checked[x][y] = true;
-        if(list[x][y] == 3) {
-            locationx.push(x);
-            locationy.push(y);
-            return true;
-        }
-        if(x < length[0] && !checked[x + 1][y] && list[x + 1][y] != 2 &&  list[x + 1][y] != 0) {
-            if(maze(x + 1,y)) {
-                locationx.push(x);
-                locationy.push(y);
-                return true;
-            }
-        }
-        if(x > 0 && !checked[x - 1][y] && list[x - 1][y] != 2 && list[x - 1][y] != 0) {
-            if(maze(x - 1,y)) {
-                locationx.push(x);
-                locationy.push(y);
-                return true;
-            }
-        }
-        if(y < length[1] && !checked[x][y + 1] && list[x][y + 1] != 2 && list[x][y + 1] != 0) {
-            if(maze(x, y + 1)) {
-                locationx.push(x);
-                locationy.push(y);
-                return true;
-            }
-        }
-        if(y > 0 && !checked[x][y - 1] && list[x][y - 1] != 2 && list[x][y - 1] != 0) {
-            if(maze(x, y -1)) {
-                locationx.push(x);
-                locationy.push(y);
-                return true;
-            }
-        }        
-        return false;
-    } 
 }
