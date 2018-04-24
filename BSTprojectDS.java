@@ -5,19 +5,22 @@
  * Period: C
  * 4/23/18
  */
+
 import java.io.*;
 import java.util.Scanner;
+import java.util.*;
+public class BSTprojectDS<T extends Comparable<T>> {
+    BSTNode<T> root;
+    BSTNode<T> curr;
+    BSTNode<T> parent; 
+    public BSTprojectDS() {
+        root = null;
+    }
 
-public class BSTprojectDS <T> {
-    int[][] BSTNodeArray = new int [10000][10000];
-    BSTNode root;
-    BSTNode curr;
-    BSTNode prevL;
-    BSTNode prevR;
-    BSTNode parentL;
-    BSTNode parentR;
-    BSTNode Leftcurr;
-    BSTNode Rightcurr;
+    public BSTprojectDS(T n) {
+        root.set(n);
+    }
+
     public void insert(T insertMe) {
         if (root == null) {
             root = new BSTNode();
@@ -28,32 +31,19 @@ public class BSTprojectDS <T> {
     }
 
     public void printTree(T print){
-        Scanner scan; 
-        scan = new Scanner(System.in);
-        String Printer = scan.nextLine();
-        BSTNode prev = curr;
-        BSTNode prevL = curr;
-        BSTNode prevR = curr;
-        BSTNode parentL = prevL;
-        BSTNode parentR = prevR;
-        for(int currentnode = 0; currentnode < Printer.length(); currentnode++) {
-            if(prevR.getc().compareTo(print)  != 0 && prevR.getc().compareTo(print) > 0) {
-                System.out.println(prevL.getc());
-                if(prevR.getc().compareTo(print) == 0 && prevR.getc().compareTo(print) < 0) {
-                    System.out.println(prevR.getc());
-                }
-   
-            
-            }
+        ArrayList<String> list = new ArrayList<String>();
+        for(String a : list){
+            System.out.println(a);
         }
-       
-      
+
     }
-    
-    public static void BSTTree() {
-        
+
+    public void balance() {
+        ArrayList<T> list = new ArrayList<T>();
+        list = addAll(list, root);
+
     }
-    
+
     private void insert_re(BSTNode n, T ins) {
         if (n.getc().compareTo(ins) > 0) {
             if (n.getLeft() == null) {
@@ -100,7 +90,7 @@ public class BSTprojectDS <T> {
         return false;
     }
 
-    public class BSTNode {
+    public class BSTNode<T> {
         T value;
         BSTNode left;
         BSTNode right;
@@ -118,4 +108,16 @@ public class BSTprojectDS <T> {
 
         public void setRight(BSTNode par) { right = par; }
     }
+
+    private ArrayList<T> addAll(ArrayList<T> list, BSTNode<T> node) {
+        list.add(node.get());
+        if(node.left != null){
+            addAll(list, node.left);
+        }
+        if(node.right != null) {
+            addAll(list, node.right);
+        }
+        return list;
+    }
 }
+
