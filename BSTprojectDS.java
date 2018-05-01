@@ -38,10 +38,23 @@ public class BSTprojectDS<T extends Comparable<T>> {
 
     }
 
-    public void balance() {
+    public void balance(T balance) {
         ArrayList<T> list = new ArrayList<T>();
         list = addAll(list, root);
-
+        if(list != null) {
+            addAll(list, root);
+            ArrayList<T> balancer = new ArrayList<T>();
+            balancer = addAll(list, curr);
+            if(balancer != null) {
+                ArrayList<T> Total = new ArrayList<T>();
+                Total = addAll(balancer, root);
+                System.out.println(Total);
+                while(balancer != null && list != null) {
+                    System.out.println("These Numbers cannot be compared.");
+                    break;
+                }
+            }
+        }
     }
 
     private void insert_re(BSTNode n, T ins) {
