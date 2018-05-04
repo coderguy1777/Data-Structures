@@ -13,6 +13,7 @@ public class BSTprojectDS<T extends Comparable<T>> {
     BSTNode<T> root;
     BSTNode<T> curr;
     BSTNode<T> parent; 
+    BSTNode<T> node;
     public BSTprojectDS() {
         root = null;
     }
@@ -32,29 +33,19 @@ public class BSTprojectDS<T extends Comparable<T>> {
 
     public void printTree(T print){
         ArrayList<String> list = new ArrayList<String>();
+
         for(String a : list){
             System.out.println(a);
         }
-
     }
 
-    public void balance(T balance) {
+    public void balance() {
         ArrayList<T> list = new ArrayList<T>();
         list = addAll(list, root);
-        if(list != null) {
-            addAll(list, root);
-            ArrayList<T> balancer = new ArrayList<T>();
-            balancer = addAll(list, curr);
-            if(balancer != null) {
-                ArrayList<T> Total = new ArrayList<T>();
-                Total = addAll(balancer, root);
-                System.out.println(Total);
-                while(balancer != null && list != null) {
-                    System.out.println("These Numbers cannot be compared.");
-                    break;
-                }
-            }
-        }
+        Collections.sort(list);
+        root = null;
+
+        curr = root;
     }
 
     private void insert_re(BSTNode n, T ins) {
@@ -103,10 +94,44 @@ public class BSTprojectDS<T extends Comparable<T>> {
         return false;
     }
 
+    private ArrayList<String> printChecker(ArrayList<String> list, BSTNode<T> parent){
+        String holder = "";
+        for(int i = 0; i < parent.depth; i++) {
+            holder += " ";
+        }
+        holder += "├─";
+        holder += node.get();
+        list.add(holder);
+        if(node.left != null) {
+            list = printChecker(list, node.left);
+        }
+        else if(parent.left == null && parent.right != null) {
+            holder = "";
+            for(int i =0; i < parent.depth + 1; i++) {
+                holder += "├─ null";
+                list.add(holder);
+            }
+        }
+        if(parent.right != null) {
+            list = printChecker(list, parent.right);
+        }
+        else if(parent.right == null && parent.left != null) {
+            holder = "";
+            for(int i = 0; i < parent.depth + 1; i++) {
+                holder += '\t';
+            }
+
+            holder += "├─ null";
+            list.add(holder);
+        }
+        return list;
+    }
+
     public class BSTNode<T> {
         T value;
         BSTNode left;
         BSTNode right;
+        public int depth = 0;
         public T get() { return value; }
 
         public Comparable getc() { return (Comparable) value; }
@@ -124,11 +149,11 @@ public class BSTprojectDS<T extends Comparable<T>> {
 
     private ArrayList<T> addAll(ArrayList<T> list, BSTNode<T> node) {
         list.add(node.get());
-        if(node.left != null){
-            addAll(list, node.left);
+        if(parent.left != null){
+            addAll(list, parent.left);
         }
-        if(node.right != null) {
-            addAll(list, node.right);
+        if(parent.right != null) {
+            addAll(list, parent.right);
         }
         return list;
     }
